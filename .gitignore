@@ -6,7 +6,9 @@ backups/
 cache/
 downloads/
 file-history/
+history.jsonl
 ide/
+plugins/
 projects/
 session-env/
 sessions/
