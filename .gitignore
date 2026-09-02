@@ -1,0 +1,14 @@
+# Secrets
+.credentials.json
+
+# Runtime / session state
+backups/
+cache/
+downloads/
+file-history/
+ide/
+projects/
+session-env/
+sessions/
+shell-snapshots/
+.last-cleanup
