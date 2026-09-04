@@ -2,6 +2,12 @@
 
 My custom harness for Claude AI.
 
+## Overview
+
+### General Terminology
+
+- **Harness:** Everything around an LLM that decides what it "remembers," what it checks, and which tasks get context and which get relegated to subagents.
+
 ## Reference
 
 ### Agents
