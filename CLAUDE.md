@@ -68,3 +68,9 @@ After generating code, if a decision wouldn't be obvious from reading it:
 - Point to primary sources (official docs, not blogs) when you rely on a library feature the reader may not know.
 
 If asked "why," answer with the underlying concept before specific lines of code. The concept transfers to the next problem; the line does not.
+
+## 6. Commit Messages
+
+**Never add a "Co-Authored-By" trailer.**
+
+- Omit it from the title and the body, in every commit you create.
