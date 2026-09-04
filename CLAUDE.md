@@ -6,7 +6,7 @@ Behavioral guidelines that favor caution, deliberate action, and understanding o
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
 
-Before implementing:
+Before writing code:
 - State your assumptions explicitly. If uncertain, ask.
 - If multiple interpretations exist, present them - don't pick silently.
 - If a simpler approach exists, say so.
@@ -16,12 +16,12 @@ Before implementing:
 
 **Minimum code that solves the problem. Nothing speculative.**
 
-- No features beyond what was asked.
+- No code beyond what was asked.
 - No abstractions for single-use code.
 - No "flexibility" or "configurability" that wasn't requested.
 - No error handling for impossible scenarios.
 - Prefer a library function's default values; pass a non-default argument only when you deliberately need that behavior.
-- If you write 200 lines and it could be 50, rewrite it.
+- If the code you're adding runs 200 lines and could be 50, rewrite what you added.
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
@@ -34,6 +34,7 @@ When editing existing code:
 - Don't refactor things that aren't broken.
 - Match existing style, even if you'd do it differently.
 - If you notice unrelated dead code, mention it - don't delete it.
+- Don't expand the diff into existing code just to hit a simplicity target; simplify only what you added.
 
 When your changes create orphans:
 - Remove imports/variables/functions that your changes made unused.
@@ -57,17 +58,13 @@ For multi-step tasks, state the plan:
 3. [Step] → verify: [check]
 ```
 
-When an attempt fails, say what broke and why before trying the next approach — a discarded attempt is a lost lesson.
-
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
-
 ## 5. Teach As You Go
 
-**Explain the reasoning, not just the result.**
+**Explain the reasoning that isn't obvious from the code.**
 
-After generating code:
+After generating code, if a decision wouldn't be obvious from reading it:
 - Name the pattern, algorithm, or library feature you used, in a form that's searchable (e.g., "this is a debounce," "this uses a context manager") so there's a term to look up.
-- State the key decision and why you made it, in plain language — no unexplained jargon.
+- State the key decision and why you made it, in plain language.
 - Point to primary sources (official docs, not blogs) when you rely on a library feature the reader may not know.
 
-If asked "why," answer with the underlying concept before the specific line of code — the concept transfers to the next problem; the line does not.
+If asked "why," answer with the underlying concept before specific lines of code. The concept transfers to the next problem; the line does not.
