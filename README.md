@@ -10,6 +10,8 @@ My custom harness for Claude AI.
 
 ## Reference
 
+This section must stay up to date: whenever an agent or skill is added, removed, or renamed, update the corresponding entry below in the same change.
+
 ### Agents
 
 - **[code-reviewer](./agents/code-reviewer.md)**: Reviews code for quality and best practices.
@@ -19,6 +21,7 @@ My custom harness for Claude AI.
 #### User-invoked
 
 - **[grill-me](./skills/grill-me/SKILL.md)**: Get relentlessly interviewed about a plan or design until every branch of the design tree is resolved.
+- **[prd-doc](./skills/prd-doc/SKILL.md)**: Create a Product Requirements Document (PRD) to scope out work, align the model and user vision of the goals and objectives, and clarify what to build and why we must build it.
 
 #### Model-invoked
 
