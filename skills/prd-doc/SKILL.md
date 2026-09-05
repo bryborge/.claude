@@ -41,7 +41,7 @@ What is the experiment plan?
 
 ## When
 
-When does it shop and what are the milestones?
+When does it ship and what are the milestones?
 ```
 
 Call the Skill tool with "grill-me".
