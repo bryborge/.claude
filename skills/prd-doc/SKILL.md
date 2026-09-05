@@ -4,7 +4,12 @@ description: Create a Product Requirements Document (PRD) to scope out work, ali
 disable-model-invocation: true
 ---
 
-Use the following template to guide the creation of the PRD. Once it is complete, and both the user (them) and the model (you) are 1. satisfied that the requirements are defined well enough AND 2. share the same understanding of the requirements, write the document to the project's `docs/` directory.
+Use the following template to guide the creation of the PRD. Once it is complete, and both the user (them) and the model (you) are:
+
+1. satisfied that the requirements are defined well enough, and
+2. share the same understanding of the requirements
+
+write the document to the project's `docs/prd/` directory.
 
 ```markdown
 # Project Title
