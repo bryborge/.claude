@@ -20,6 +20,7 @@ This section must stay up to date: whenever an agent or skill is added, removed,
 
 #### User-invoked
 
+- **[adr-doc](./skills/adr-doc/SKILL.md)**: Create an Architecture Decision Record (ADR) to scope out an architectural decision, align the model and user vision of the technical trade-offs, consequences, and context that precipitated the need for this decision, and to clarify how the decision will be enacted.
 - **[grill-me](./skills/grill-me/SKILL.md)**: Get relentlessly interviewed about a plan or design until every branch of the design tree is resolved.
 - **[prd-doc](./skills/prd-doc/SKILL.md)**: Create a Product Requirements Document (PRD) to scope out work, align the model and user vision of the goals and objectives, and clarify what to build and why we must build it.
 
