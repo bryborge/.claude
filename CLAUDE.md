@@ -21,6 +21,7 @@ Before writing code:
 - No "flexibility" or "configurability" that wasn't requested.
 - No error handling for impossible scenarios.
 - Prefer a library function's default values; pass a non-default argument only when you deliberately need that behavior.
+- No comments that restate what the code already says. Write one only when the code cannot carry the information itself: a non-obvious "why", a workaround, a constraint imposed from outside the file. An explicit argument, a good name, or a docstring already saying it makes the comment noise.
 - If the code you're adding runs 200 lines and could be 50, rewrite what you added.
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
