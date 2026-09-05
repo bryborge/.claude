@@ -97,3 +97,11 @@ If asked "why," answer with the underlying concept before specific lines of code
 **Never add a "Co-Authored-By" trailer.**
 
 - Omit it from the title and the body, in every commit you create.
+
+**One logical change per commit.**
+
+- Never bundle a feature with a bugfix you hit along the way, a refactor with a behavior change, or a rename with an edit. Separate commits.
+- Every commit must build and pass tests on its own. If a refactor needs an intermediate state to stay green, write the intermediate state.
+- Order so each commit stands alone: preparatory refactors and incidental fixes before the change that needs them.
+- Never commit until I've asked for it. When I do, propose the sequence of subjects and wait for my go-ahead before writing any of them.
+- Subject: imperative mood, no type prefix. Body: what was wrong and why this change, not a restatement of the diff.
