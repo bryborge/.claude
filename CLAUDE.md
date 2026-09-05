@@ -23,8 +23,13 @@ Before writing code:
 - Prefer a library function's default values; pass a non-default argument only when you deliberately need that behavior.
 - No comments that restate what the code already says. Write one only when the code cannot carry the information itself: a non-obvious "why", a workaround, a constraint imposed from outside the file. An explicit argument, a good name, or a docstring already saying it makes the comment noise.
 - If the code you're adding runs 200 lines and could be 50, rewrite what you added.
+- Scaffolding is for code that has users. `argparse`, a `main()`, exit codes, error handling, logging, retries: each exists to serve a caller who isn't in the room. A script the asker runs by hand has exactly one caller, so hardcode the values they named and keep only the lines that do the work.
+- Sad paths belong in the test suite. A script that demonstrates behavior shows the happy path; re-covering the error cases there is duplication, not diligence.
+- When the request comes with an example, the example is the spec, not a starting point. Match its scale.
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+Then delete: take out each line you added and ask whether the code still does what was asked. If it does, it stays out. Stop when every remaining line is load-bearing.
 
 ## 3. Surgical Changes
 
