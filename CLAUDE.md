@@ -59,9 +59,31 @@ For multi-step tasks, state the plan:
 3. [Step] → verify: [check]
 ```
 
-## 5. Teach As You Go
+## 5. Patch Last, Not First
 
-**Explain the reasoning that isn't obvious from the code.**
+**Monkeypatching is a smell. It's a signal about the code, not a routine test tool.**
+
+Reaching for `monkeypatch`, `mock.patch`, or any runtime rebinding says the code has a
+hard-wired dependency the test can't reach from the outside. Sometimes that's true. Work
+down this list and stop at the first thing that works:
+
+- Can real input values drive the code down the branch you want? Use them.
+- Can you pass a stub *in* — an argument, a fake collaborator, a fixture object — rather
+  than reaching in and rewriting a global? Do that.
+- Is the thing genuinely uncontrollable from outside — wall-clock time, randomness,
+  network, filesystem, hardware? Patch it. That's what the technique is for.
+
+Never add a patch defensively, because a call *looks* like it needs one. Before keeping any
+patch, prove it's load-bearing: replace it with something that fails loudly
+(`lambda *_: pytest.fail("called")`) and run the suite. If the suite still passes, the
+patch was never on the path — delete it.
+
+When a patch is genuinely required, name in your response what design forced it. "I had to
+patch X" is a finding about the code worth surfacing, not a test detail to bury.
+
+## 6. Teach As You Go
+
+**Explain the reasoning that isn't obvious from the code — in your response, not in comments.**
 
 After generating code, if a decision wouldn't be obvious from reading it:
 - Name the pattern, algorithm, or library feature you used, in a form that's searchable (e.g., "this is a debounce," "this uses a context manager") so there's a term to look up.
@@ -70,7 +92,7 @@ After generating code, if a decision wouldn't be obvious from reading it:
 
 If asked "why," answer with the underlying concept before specific lines of code. The concept transfers to the next problem; the line does not.
 
-## 6. Commit Messages
+## 7. Commit Messages
 
 **Never add a "Co-Authored-By" trailer.**
 
