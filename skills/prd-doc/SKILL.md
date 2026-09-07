@@ -49,4 +49,4 @@ What is the experiment plan?
 When does it ship and what are the milestones?
 ```
 
-Call the Skill tool with "grill-me".
+Call the Skill tool with "grilling".

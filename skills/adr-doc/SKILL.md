@@ -33,4 +33,4 @@ What did we decide to do, and what alternatives did we consider and reject?
 What tradeoffs, risks, or follow-up work result from this decision?
 ```
 
-Call the Skill tool with "grill-me".
+Call the Skill tool with `grilling`.
