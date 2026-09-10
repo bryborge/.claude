@@ -2,5 +2,6 @@
   "model": "sonnet",
   "hooks": {},
   "effortLevel": "high",
-  "theme": "auto"
+  "theme": "auto",
+  "includeCoAuthoredBy": false
 }
