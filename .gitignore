@@ -13,4 +13,6 @@ projects/
 session-env/
 sessions/
 shell-snapshots/
+telemetry/
 .last-cleanup
+.last-update-result.json
