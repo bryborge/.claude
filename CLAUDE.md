@@ -1,5 +1,7 @@
 # CLAUDE.md
 
+Every skill must have a reference in the top-level README.md, and each skill entry in the top-level README.md must link the skill name to its SKILL.md.
+
 No em-dashes anywhere in this repo's prose (SKILL.md files, docs, README.md, CHANGELOG.md, ADRs, changesets, code comments). Where a sentence reaches for one, rewrite it instead with a comma, colon, period, parentheses, or a conjunction, whichever the sentence actually wants; never do a blind character substitution.
 
 ## Commits
