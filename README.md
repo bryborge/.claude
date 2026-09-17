@@ -35,5 +35,6 @@ Skills depend on the following cli tools:
 - **[code-review](./skills/code-review/SKILL.md)**: Review the diff since a fixed point along two axes, Standards (repo conventions plus a baseline of Fowler code smells) and Spec (does it match the originating issue), run as parallel sub-agents and reported side by side.
 - **[domain-modeling](./skills/domain-modeling/SKILL.md)**: Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a CONTEXT.md, or recording or editing an ADR.
 - **[grilling](./skills/grilling/SKILL.md)**: Interview the user relentlessly about a plan, decision, or idea until every branch of the design tree is resolved. The reusable interview primitive behind `grill-me`.
+- **[research](./skills/research/SKILL.md)**: Investigate a question against high-trust primary sources and capture the findings as a Markdown file in the repo, run as a background agent.
 - **[tdd](./skills/tdd/SKILL.md)**: Test-driven development reference for the red to green loop: what a good test is, where tests go (seams), and the anti-patterns (implementation-coupled, tautological, horizontal slicing) to avoid.
 - **[writing-for-agents](./skills/writing-for-agents/SKILL.md)**: Writing documents for agents. Use when creating or editing skills, or modifying AGENTS.md or CLAUDE.md.
