@@ -1,7 +1,12 @@
 {
-  "model": "sonnet",
+  "includeCoAuthoredBy": false,
+  "model": "opus",
   "hooks": {},
-  "effortLevel": "high",
-  "theme": "auto",
-  "includeCoAuthoredBy": false
+  "effortLevel": "medium",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "medium"
+    }
+  },
+  "theme": "auto"
 }

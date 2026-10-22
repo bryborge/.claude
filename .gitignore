@@ -14,6 +14,8 @@ projects/
 session-env/
 sessions/
 shell-snapshots/
+skills/synced/
+state/
 telemetry/
 .last-cleanup
 .last-update-result.json
