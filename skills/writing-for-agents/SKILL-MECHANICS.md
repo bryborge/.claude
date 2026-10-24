@@ -1,22 +1,39 @@
-# Skill mechanics
+# Skill Mechanics
 
-The skill-specific branch of [`writing-for-agents`](SKILL.md): what changes when the document is a skill (frontmatter, the invocation choice, and router skills). Everything else about writing it is the universal reference in `SKILL.md`.
+The skill branch of [`writing-for-agents`](SKILL.md): frontmatter, invocation, and router skills. Platform facts come from the [Claude Code skills docs](https://code.claude.com/docs/en/skills), checked 2026-10-23; recheck them when a detail matters.
+
+## Frontmatter
+
+- `name` defaults to the directory name.
+- `description` is the skill's always-loaded context pointer, so the pointer rules in `SKILL.md` apply in full. Put the key use case first: the description plus any `when_to_use` text is truncated at 1,536 characters in the skill listing.
+- Unrecognized fields are ignored without an error, so a misspelled field fails silently. Check field names against the docs.
+- Add other fields (`allowed-tools`, `argument-hint`, `paths`, `model`, …) only when the skill needs them.
 
 ## Invocation
 
-Two choices, trading the two loads:
+Three settings trade context cost against who can reach the skill:
 
-- A **model-invoked** skill keeps a `description`, so the agent can fire it autonomously, and other skills can reach it. You can still type its name: model-invocation always _includes_ user reach; a description only ever adds agent discovery, never removes the human's. The description is the skill's top-level context pointer, forced to stay loaded at all times: permanent context load in exchange for discoverability. A model-invoked skill whose content is all reference is also one home for shared reference: another skill can invoke it, so reference needed by several skills lives in one place. Mechanics: omit `disable-model-invocation`, and write a model-facing description carrying the trigger branches (the pointer-writing rules in `SKILL.md` apply in full).
-- A **user-invoked** skill strips the description from the agent's reach: only the human typing its name can invoke it, and no other skill can. Zero context load, but it spends cognitive load: you are the index that must remember it exists. Mechanics: set `disable-model-invocation: true`; the `description` becomes human-facing: a one-line summary, trigger lists stripped.
+| Setting | Who invokes | Description in context |
+| --- | --- | --- |
+| default | user and agent | always |
+| `disable-model-invocation: true` | user only | never |
+| `user-invocable: false` | agent only | always |
 
-Pick model-invocation only when the agent must reach the skill on its own, or another skill must. If it only ever fires by hand, make it user-invoked and pay no context load.
+- A **model-invoked** skill (the default) can fire on its own, and other skills can reach it. Its description is model-facing and carries the trigger cases. A model-invoked skill that holds only reference is also a home for reference several skills share.
+- A **user-invoked** skill costs no context, but you become the index that must remember it exists. Its description becomes a one-line summary for humans, with trigger lists removed.
+- An **agent-only** skill suits background reference that a human would never type by name.
 
-Shared reference that two user-invoked skills both need can live in neither: with no descriptions, neither can fire the other. Push it to a plain file outside the skill system: external reference any skill can point at.
+Choose model invocation only when the agent, or another skill, must reach the skill unprompted.
 
-## Splitting by invocation
+Reference that two user-invoked skills both need can live in neither, because neither can fire the other. Put it in a plain file outside the skill system and point to it from both.
 
-The invocation cut of splitting (the sequence cut lives in `SKILL.md`): split off a model-invoked skill when you have a distinct leading word that should trigger it on its own (a trigger word you actually use in your prompts), or another skill must reach it. You pay context load for the new always-loaded description, so that independent reach has to be worth it.
+Split off a new model-invoked skill only when a distinct leading word you actually use in prompts should trigger it alone, or when another skill must reach it. The new description costs context every turn, so that independent reach has to be worth it.
 
-## Router skills
+## Body
 
-When user-invoked skills multiply past what you can remember, that piled-up cognitive load is cured by a **router skill**: one user-invoked skill that names the others and when to reach for each, so the human has one skill to remember instead of many. It can only hint, never fire them: user-invoked skills have no description, so nothing but the human can reach them.
+- Keep `SKILL.md` under 500 lines. Move detail into sibling files, each reached by a pointer that says what the file holds and when to read it.
+- Once invoked, the body stays in context across turns and is not re-read, so write standing instructions rather than one-time steps. After auto-compaction only the first 5,000 tokens of a skill are re-attached, so put what must survive first.
+
+## Router Skills
+
+When user-invoked skills multiply past what you can remember, a **router skill** cures it: one user-invoked skill that names the others and when to reach for each, leaving one name to remember instead of many. It can only point to them; it cannot fire them.
