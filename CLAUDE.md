@@ -82,6 +82,7 @@ fixes it. The diff already shows how.
 ```
 
 - Keep the subject to 50 characters, prefix included.
+- Keep the body to two or three lines.
 - End the message with the body. Never add a `Co-Authored-By` trailer.
 
 Pick the type that describes the change:
