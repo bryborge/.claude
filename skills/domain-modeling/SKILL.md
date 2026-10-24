@@ -1,74 +1,87 @@
 ---
 name: domain-modeling
-description: Build and sharpen a project's domain model. Use when discussing codebase terminology, writing or editing a CONTEXT.md, or recording or editing an ADR.
+description: Domain modeling, building a project's ubiquitous language and bounded contexts. Use when the user wants to do domain modeling or nail down a project's domain, when a domain term is contested or used loosely during design, or when writing or editing a CONTEXT.md, CONTEXT-MAP.md, or ADR.
 ---
 
 # Domain Modeling
 
-Actively build and sharpen the project's domain model as you design. This is the *active* discipline: challenging terms, inventing edge-case scenarios, and writing the glossary and decisions down the moment they crystallize. (Merely *reading* `CONTEXT.md` for vocabulary is not this skill: that's a one-line habit any skill can do. This skill is for when you're changing the model, not just consuming it.)
+Build the project's **ubiquitous language** while you design: challenge terms, stress-test them with scenarios, and write each one down the moment it resolves. `CONTEXT.md` is the glossary for one **bounded context**; ADRs record the decisions that shape it.
 
-## File structure
+## Files
 
-Most repos have a single context:
+A single-context repo has one `CONTEXT.md` at the root and its ADRs in `docs/adr/`. A `CONTEXT-MAP.md` at the root means the repo has several contexts; read [CONTEXT-MAP-FORMAT.md](CONTEXT-MAP-FORMAT.md) before working in such a repo or splitting off a second context.
 
-```sh
-/
-├── CONTEXT.md
-├── docs/
-│   └── adr/
-│       ├── 0001-event-sourced-orders.md
-│       └── 0002-postgres-for-write-model.md
-└── src/
-```
+Create each file when you first have something to write in it.
 
-If a `CONTEXT-MAP.md` exists at the root, the repo has multiple contexts. The map points to where each one lives:
-
-```sh
-/
-├── CONTEXT-MAP.md
-├── docs/
-│   └── adr/                          ← system-wide decisions
-├── src/
-│   ├── ordering/
-│   │   ├── CONTEXT.md
-│   │   └── docs/adr/                 ← context-specific decisions
-│   └── billing/
-│       ├── CONTEXT.md
-│       └── docs/adr/
-```
-
-Create files lazily: only when you have something to write. If no `CONTEXT.md` exists, create one when the first term is resolved. If no `docs/adr/` exists, create it when the first ADR is needed.
-
-## During the session
+## During the Session
 
 ### Challenge against the glossary
 
-When the user uses a term that conflicts with the existing language in `CONTEXT.md`, call it out immediately. "Your glossary defines 'cancellation' as X, but you seem to mean Y. Which is it?"
+When the user uses a term in a way that conflicts with its `CONTEXT.md` entry, call it out at once: "Your glossary defines a Fault as latched until the host clears it, but you're describing one that clears itself. Which is it?"
 
 ### Sharpen fuzzy language
 
-When the user uses vague or overloaded terms, propose a precise canonical term. "You're saying 'account': do you mean the Customer or the User? Those are different things."
+When the user uses a vague or overloaded term, propose a precise canonical one: "You're saying 'build': do you mean the Image or the pipeline run that produced it?"
 
-### Discuss concrete scenarios
+### Stress-test with scenarios
 
-When domain relationships are being discussed, stress-test them with specific scenarios. Invent scenarios that probe edge cases and force the user to be precise about the boundaries between concepts.
+When relationships between concepts are under discussion, invent edge-case scenarios that force a precise boundary between them: a Fault that fires mid-update, an Image signed by a revoked key.
 
 ### Cross-reference with code
 
-When the user states how something works, check whether the code agrees. If you find a contradiction, surface it: "Your code cancels entire Orders, but you just said partial cancellation is possible. Which is right?"
+When the user states how something works, check whether the code agrees, and surface any contradiction: "Your overcurrent ISR clears the Fault on the next PWM cycle, but you just said Faults latch until the host clears them. Which is right?"
 
-### Update CONTEXT.md inline
+### Defer to the datasheet
 
-When a term is resolved, update `CONTEXT.md` right there. Don't batch these up: capture them as they happen. Use the format in [CONTEXT-FORMAT.md](./CONTEXT-FORMAT.md).
+When a term names hardware (a peripheral, register, field, signal, or pin), the datasheet or reference manual's name is the default canonical term. Challenge drift from it and cite the section. When the project deliberately uses its own name, the glossary entry records the source term.
 
-`CONTEXT.md` should be totally devoid of implementation details. Do not treat `CONTEXT.md` as a spec, a scratch pad, or a repository for implementation decisions. It is a glossary and nothing else.
+### Write each term as it resolves
 
-### Offer ADRs sparingly
+Update `CONTEXT.md` the moment a term resolves, in this format:
 
-Only offer to create an ADR when all three are true:
+```md
+# {Context Name}
 
-1. **Hard to reverse**: the cost of changing your mind later is meaningful
-2. **Surprising without context**: a future reader will wonder "why did they do it this way?"
-3. **The result of a real trade-off**: there were genuine alternatives and you picked one for specific reasons
+{One or two sentences: what this context is and why it exists.}
 
-If any of the three is missing, skip the ADR. Use the format in [ADR-FORMAT.md](./ADR-FORMAT.md).
+## Language
+
+### Control
+
+**Sample**:
+One ADC conversion result for one current-sense channel.
+_Avoid_: reading, measurement
+
+**Fault**:
+A latched condition in which the power stage stays disabled until the host clears it.
+_Avoid_: error, alarm, trip
+
+### Release
+
+**Image**:
+A signed firmware binary that the bootloader verifies before launch.
+_Avoid_: build, binary, artifact
+
+**Release**:
+A tagged Image published together with its SBOM and provenance attestation.
+_Avoid_: version, drop
+```
+
+- **Be opinionated.** Pick one word per concept and list the others under `_Avoid_`.
+- **Define what the term is**, in one or two sentences. Behavior and implementation belong in the code and the ADRs.
+- **Include a term only when its meaning is specific to this context.** "ADC" and "retry" are general; "Sample" as defined above is the project's own.
+- **Name the hardware source.** When a term differs from the datasheet name it maps to, add `_Datasheet_: {source name} ({document} §{section})`.
+
+### Offer ADRs at the gate
+
+Offer an ADR only when a decision is all three:
+
+1. **Hard to reverse**: changing your mind later carries a real cost.
+2. **Surprising without context**: a future reader will ask "why did they do it this way?"
+3. **The result of a real trade-off**: there were genuine alternatives, and one was picked for specific reasons.
+
+When a decision passes or nearly passes, read [ADR-FORMAT.md](ADR-FORMAT.md) for examples of what qualifies and the template.
+
+## Done
+
+The session's modeling is done when every domain term used in it either matches its glossary entry or has been resolved and written, and every decision that passed the gate has been offered as an ADR.
