@@ -44,6 +44,8 @@ Finding facts is your job; the decisions are the user's. Look up anything the en
 
 When a decision turns on what a domain term means, or is one an ADR might record, call the Skill tool with `domain-modeling`.
 
+When a decision is algorithmic (a choice of how a computation is done, with real alternatives that differ in correctness, complexity, timing, or resource use), call the Skill tool with `pseudocode`.
+
 ## Done
 
 The interview is done when the frontier is empty: every branch followed to its leaves, nothing silently assumed. Then list the settled decisions, numbered, each with its one-line reason, and wait for the user to confirm the list before acting on any of it.
